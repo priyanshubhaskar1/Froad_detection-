@@ -1,0 +1,144 @@
+# %%
+# This Python 3 environment comes with many helpful analytics libraries installed
+# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python
+# For example, here's several helpful packages to load
+
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+
+# Input data files are available in the read-only "../input/" directory
+# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory
+
+import os
+for dirname, _, filenames in os.walk('/kaggle/input'):
+    for filename in filenames:
+        print(os.path.join(dirname, filename))
+
+# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using "Save & Run All" 
+# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session
+
+# %% [markdown]
+# ### EDA
+
+# %%
+df = pd.read_csv('/kaggle/input/fastag-fraud-detection-datesets-fictitious/FastagFraudDetection.csv')
+df.head()
+
+# %%
+df.shape
+
+# %%
+df.info()
+
+# %%
+#to find is there is a null or not 
+df.isnull().sum()
+
+# %% [markdown]
+# ### Total null value is in FastagID 549 
+
+# %%
+df.duplicated().sum()
+
+# %%
+#describe or get the statistical description
+df.describe()
+
+
+# %%
+df.describe(include='object')
+
+# %%
+df.columns
+
+# %%
+df['Vehicle_Type'].unique()
+
+# %%
+print("Unique Vehicle Type:", df['Vehicle_Type'].unique())
+print("Unique TollBoothID:", df['TollBoothID'].unique())
+print("Unique Lane_Type:", df['Lane_Type'].unique())
+print("Unique Vehicle_Dimensions:", df['Vehicle_Dimensions'].unique())
+print("Unique Fraud_indicator:", df['Fraud_indicator'].unique())
+print("Unique Geographical_Location:", df['Geographical_Location'].unique())
+
+
+# %% [markdown]
+# # Data Visualization
+
+# %%
+#import Libraries
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# %%
+print(df['Fraud_indicator'].value_counts())
+df['Fraud_indicator'].value_counts().plot(kind='pie',autopct = '%1.1f%%',colors = ['yellow','red'])
+plt.title("Percentage of Fraud Indicator")
+plt.axis('equal')
+plt.show()
+
+# %%
+
+
+# %% [markdown]
+# ## Analysis of different columns
+# ** # Based on Froud indicator# **
+
+# %%
+df['Vehicle_Type'].value_counts()
+
+# %%
+# Vehicle Type
+sns.countplot(x='Vehicle_Type',data =df, hue='Fraud_indicator').set_title('Vehicle Type')
+
+# %%
+# Vehicle Dimensions 
+sns.countplot(x='Vehicle_Dimensions',data =df, hue='Fraud_indicator')
+
+# %%
+#TollBoothID 
+sns.countplot(x='TollBoothID',data =df, 
+              hue='Fraud_indicator').set_title('Different Tollbooths')
+
+# %%
+#Lane Type
+sns.countplot(x='Lane_Type',data =df, 
+              hue='Fraud_indicator').set_title('Different Lans')
+
+# %%
+# combining all graphs together
+fig,axes = plt.subplots(2,2, figsize=(13,10))
+# Vehicle Type
+sns.countplot(x='Vehicle_Type',data =df, 
+              hue='Fraud_indicator',
+             ax=axes[0,0]).set_title('Vehicle Type')
+# Vehicle Dimensions 
+sns.countplot(x='Vehicle_Dimensions',data =df, hue='Fraud_indicator',
+              ax=axes[0,1]
+             )
+#TollBoothID 
+sns.countplot(x='TollBoothID',data =df, 
+              hue='Fraud_indicator',
+             ax = axes[1,0]).set_title('Different Tollbooths'
+                                              )
+#Lane Type
+sns.countplot(x='Lane_Type',data =df, 
+              hue='Fraud_indicator',
+             ax = axes[1,1]).set_title('Different Lans')
+
+# %% [markdown]
+# ### Observation
+# 1. Motorcycles are clean
+# 2. Toll boots 104,105 & 106 are clean 101,102,103 are not
+# 3. Expressway has a higher fraud % based on the vehicle than regular
+#    
+
+# %%
+#distribution of transaction amount
+sns.histplot(df['Transction_Account'],bins =30,kide = True)
+
+
+
+
+
