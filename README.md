@@ -1,4 +1,4 @@
-Fraud Detection Using Machine Learning
+**Fraud Detection Using Machine Learning**
 
 This project focuses on detecting fraudulent transactions using multiple machine learning models. It includes complete steps from data preprocessing to model evaluation, providing a practical and educational example of fraud analytics.
 
