@@ -73,14 +73,23 @@ Random Forest performed best in terms of accuracy and balanced precision–recal
 
 📂 **Project Structure**
 fraud-detection-ml/
+|
 │── data/
+|
 │── notebooks/
+|
 │── src/
+|
 │   ├── preprocessing.py
+|
 │   ├── model_training.py
+|
 │   ├── evaluation.py
+|
 │── models/
+|
 │── README.md
+|
 │── requirements.txt
 
 🛠️ **Tech Stack**
