@@ -86,8 +86,11 @@ fraud-detection-ml/
 🛠️ **Tech Stack**
 
 Python
+
 Pandas
+
 NumPy
+
 Scikit-Learn
 Matplotlib
 Seaborn
